@@ -2,11 +2,11 @@
 
 ## Phase 0: Test Infrastructure Setup
 
-- [ ] **T0.1** Install testing dependencies (Jest, React Testing Library, @testing-library/react, @testing-library/jest-dom)
-- [ ] **T0.2** Create Jest configuration (`jest.config.js`)
-- [ ] **T0.3** Create test utilities and setup file (`app/lib/test-utils.tsx`)
-- [ ] **T0.4** Add test scripts to `package.json` (`npm test`, `npm test:watch`)
-- [ ] **T0.5** Create test examples and document testing patterns for the team
+- [x] **T0.1** Install testing dependencies (Jest, React Testing Library, @testing-library/react, @testing-library/jest-dom)
+- [x] **T0.2** Create Jest configuration (`jest.config.js`)
+- [x] **T0.3** Create test utilities and setup file (`app/lib/test-utils.tsx`)
+- [x] **T0.4** Add test scripts to `package.json` (`npm test`, `npm test:watch`)
+- [x] **T0.5** Create test examples and document testing patterns for the team
 
 ## Phase 1: Foundation & Setup
 
