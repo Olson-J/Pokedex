@@ -10,43 +10,43 @@
 
 ## Phase 1: Foundation & Setup
 
-- [ ] **T1.1** Create tab layout structure (`app/(tabs)/layout.tsx`)
-- [ ] **T1.2** Create tab navigation component (`app/components/TabNavigation.tsx`) with client-side rendering
-- [ ] **T1.3** Update root page (`app/page.tsx`) to redirect to `/pokemon` using `redirect()` function
-- [ ] **T1.4** Create API integration utility (`app/lib/pokeapi.ts`) with fetch helpers for Pokemon, Locations, Moves, Generations
-- [ ] **T1.5** Test tab navigation and redirect functionality
+- [x] **T1.1** Create tab layout structure (`app/(tabs)/layout.tsx`)
+- [x] **T1.2** Create tab navigation component (`app/components/TabNavigation.tsx`) with client-side rendering
+- [x] **T1.3** Update root page (`app/page.tsx`) to redirect to `/pokemon` using `redirect()` function
+- [x] **T1.4** Create API integration utility (`app/lib/pokeapi.ts`) with fetch helpers for Pokemon, Locations, Moves, Generations
+- [x] **T1.5** Test tab navigation and redirect functionality
 
 ## Phase 2: Reusable Components & Utilities
 
 ### BackButton Component
-- [ ] **T2.1** Write tests for BackButton component (click handler, returns to previous page)
-- [ ] **T2.1a** Run tests - verify they FAIL (before implementation)
-- [ ] **T2.2** Create `BackButton.tsx` component for navigation
-- [ ] **T2.3** Run tests - verify BackButton tests pass
+- [x] **T2.1** Write tests for BackButton component (click handler, returns to previous page)
+- [x] **T2.1a** Run tests - verify they FAIL (before implementation)
+- [x] **T2.2** Create `BackButton.tsx` component for navigation
+- [x] **T2.3** Run tests - verify BackButton tests pass
 
 ### SearchInput Component
-- [ ] **T2.4** Write tests for SearchInput component (input handling, case-insensitive matching, onChange callback)
-- [ ] **T2.4a** Run tests - verify they FAIL (before implementation)
-- [ ] **T2.5** Create `SearchInput.tsx` component
-- [ ] **T2.6** Run tests - verify SearchInput tests pass
+- [x] **T2.4** Write tests for SearchInput component (input handling, case-insensitive matching, onChange callback)
+- [x] **T2.4a** Run tests - verify they FAIL (before implementation)
+- [x] **T2.5** Create `SearchInput.tsx` component
+- [x] **T2.6** Run tests - verify SearchInput tests pass
 
 ### Card Components
-- [ ] **T2.7** Write tests for card components (PokemonCard, LocationCard, MoveCard, GenerationCard - render data, clickable links)
-- [ ] **T2.7a** Run tests - verify they FAIL (before implementation)
-- [ ] **T2.8** Create card components (PokemonCard, LocationCard, MoveCard, GenerationCard) in `app/components/`
-- [ ] **T2.9** Run tests - verify all card component tests pass
+- [x] **T2.7** Write tests for card components (PokemonCard, LocationCard, MoveCard, GenerationCard - render data, clickable links)
+- [x] **T2.7a** Run tests - verify they FAIL (before implementation)
+- [x] **T2.8** Create card components (PokemonCard, LocationCard, MoveCard, GenerationCard) in `app/components/`
+- [x] **T2.9** Run tests - verify all card component tests pass
 
 ### Utility Functions
-- [ ] **T2.10** Write tests for API utility functions (data transformation, formatting)
-- [ ] **T2.10a** Run tests - verify they FAIL (before implementation)
-- [ ] **T2.11** Create shared utility functions in `app/lib/` (data transformation, formatting, helpers)
-- [ ] **T2.12** Run tests - verify utility tests pass
+- [x] **T2.10** Write tests for API utility functions (data transformation, formatting)
+- [x] **T2.10a** Run tests - verify they FAIL (before implementation)
+- [x] **T2.11** Create shared utility functions in `app/lib/` (data transformation, formatting, helpers)
+- [x] **T2.12** Run tests - verify utility tests pass
 
 ### Error Handling
-- [ ] **T2.13** Write tests for error handling component (display error messages, retry functionality)
-- [ ] **T2.13a** Run tests - verify they FAIL (before implementation)
-- [ ] **T2.14** Create error boundary or error handling component for API failures
-- [ ] **T2.15** Run all Phase 2 tests - final verification before moving to list pages
+- [x] **T2.13** Write tests for error handling component (display error messages, retry functionality)
+- [x] **T2.13a** Run tests - verify they FAIL (before implementation)
+- [x] **T2.14** Create error boundary or error handling component for API failures
+- [x] **T2.15** Run all Phase 2 tests - final verification before moving to list pages
 
 ## Phase 3: List Pages with Search
 
