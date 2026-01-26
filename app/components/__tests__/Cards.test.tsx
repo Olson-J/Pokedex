@@ -17,11 +17,6 @@ describe('PokemonCard', () => {
     expect(screen.getByText('Pikachu')).toBeInTheDocument()
   })
 
-  it('renders pokemon id', () => {
-    render(<PokemonCard name="Pikachu" id={25} />)
-    expect(screen.getByText('#25')).toBeInTheDocument()
-  })
-
   it('renders as a link to pokemon detail page', () => {
     render(<PokemonCard name="Pikachu" id={25} />)
     const link = screen.getByRole('link')

@@ -1,4 +1,4 @@
-import TabNavigation from '@/components/TabNavigation'
+import TabNavigation from '@/app/components/TabNavigation'
 
 export default function TabsLayout({
   children,

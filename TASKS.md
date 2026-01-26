@@ -51,12 +51,12 @@
 ## Phase 3: List Pages with Search
 
 ### Pokemon List
-- [ ] **T3.1** Write tests for Pokemon list component (render list using PokemonCard, search filtering, link navigation, back button)
-- [ ] **T3.1a** Run tests - verify they FAIL (before implementation)
-- [ ] **T3.2** Create `/pokemon/page.tsx` with searchable Pokemon list using PokemonCard and SearchInput components
-- [ ] **T3.3** Run tests - verify all Pokemon list tests pass
-- [ ] **T3.4** Style Pokemon list with responsive layout (mobile/desktop)
-- [ ] **T3.5** Run tests again after styling
+- [x] **T3.1** Write tests for Pokemon list component (render list using PokemonCard, search filtering, link navigation, back button)
+- [x] **T3.1a** Run tests - verify they FAIL (before implementation)
+- [x] **T3.2** Create `/pokemon/page.tsx` with searchable Pokemon list using PokemonCard and SearchInput components
+- [x] **T3.3** Run tests - verify all Pokemon list tests pass
+- [x] **T3.4** Style Pokemon list with responsive layout (mobile/desktop)
+- [x] **T3.5** Run tests again after styling
 
 ### Locations List
 - [ ] **T3.6** Write tests for locations list component (render list, search, back button)
