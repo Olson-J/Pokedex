@@ -2,10 +2,9 @@ import Link from 'next/link'
 
 interface PokemonCardProps {
   name: string
-  id: number
 }
 
-export default function PokemonCard({ name, id }: PokemonCardProps) {
+export default function PokemonCard({ name }: PokemonCardProps) {
   const slug = name.toLowerCase().replace(/\s+/g, '-')
   return (
     <Link href={`/pokemon/${slug}`}>

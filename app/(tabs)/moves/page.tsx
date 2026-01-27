@@ -2,49 +2,49 @@
 
 import { useState, useMemo, useEffect } from 'react'
 import SearchInput from '@/app/components/SearchInput'
-import PokemonCard from '@/app/components/PokemonCard'
+import MoveCard from '@/app/components/MoveCard'
 import BackButton from '@/app/components/BackButton'
 import ErrorDisplay from '@/app/components/ErrorDisplay'
 
-interface Pokemon {
+interface Move {
   name: string
   url: string
 }
 
-export default function PokemonListPage() {
-  const [allPokemon, setAllPokemon] = useState<Pokemon[]>([])
+export default function MovesListPage() {
+  const [allMoves, setAllMoves] = useState<Move[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchPokemon()
+    fetchMoves()
   }, [])
 
-  const fetchPokemon = async () => {
+  const fetchMoves = async () => {
     try {
       setLoading(true)
       setError(null)
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025')
-      if (!response.ok) throw new Error('Failed to fetch Pokemon')
+      const response = await fetch('https://pokeapi.co/api/v2/move?limit=1000')
+      if (!response.ok) throw new Error('Failed to fetch moves')
       const data = await response.json()
-      setAllPokemon(data.results)
+      setAllMoves(data.results)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load Pokemon')
-      setAllPokemon([])
+      setError(err instanceof Error ? err.message : 'Failed to load moves')
+      setAllMoves([])
     } finally {
       setLoading(false)
     }
   }
 
-  const filteredPokemon = useMemo(() => {
-    return allPokemon.filter((pokemon) =>
-      pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+  const filteredMoves = useMemo(() => {
+    return allMoves.filter((move) =>
+      move.name.toLowerCase().startsWith(searchTerm.toLowerCase())
     )
-  }, [searchTerm, allPokemon])
+  }, [searchTerm, allMoves])
 
   const handleRetry = () => {
-    fetchPokemon()
+    fetchMoves()
   }
 
   return (
@@ -54,17 +54,17 @@ export default function PokemonListPage() {
           <BackButton />
         </div>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white truncate">Pokemon</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white truncate">Moves</h1>
           <div className="w-full md:w-96">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder="Search Pokemon..."
+              placeholder="Search moves..."
             />
           </div>
         </div>
         <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 md:mt-3">
-          Showing {filteredPokemon.length} of {allPokemon.length}
+          Showing {filteredMoves.length} of {allMoves.length}
         </p>
       </div>
 
@@ -73,17 +73,17 @@ export default function PokemonListPage() {
 
         {loading ? (
           <div className="flex justify-center items-center min-h-96">
-            <p className="text-gray-600 dark:text-gray-400">Loading Pokemon...</p>
+            <p className="text-gray-600 dark:text-gray-400">Loading moves...</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
-            {filteredPokemon.length > 0 ? (
-              filteredPokemon.map((pokemon) => (
-                <PokemonCard key={pokemon.name} name={pokemon.name} />
+            {filteredMoves.length > 0 ? (
+              filteredMoves.map((move) => (
+                <MoveCard key={move.name} name={move.name} />
               ))
             ) : (
               <div className="col-span-full text-center py-8 text-gray-600 dark:text-gray-400">
-                {searchTerm ? 'No Pokemon found matching your search' : 'No Pokemon available'}
+                {searchTerm ? 'No moves found matching your search' : 'No moves available'}
               </div>
             )}
           </div>

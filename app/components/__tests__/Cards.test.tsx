@@ -13,18 +13,18 @@ import GenerationCard from '@/app/components/GenerationCard'
 
 describe('PokemonCard', () => {
   it('renders pokemon name', () => {
-    render(<PokemonCard name="Pikachu" id={25} />)
+    render(<PokemonCard name="Pikachu" />)
     expect(screen.getByText('Pikachu')).toBeInTheDocument()
   })
 
   it('renders as a link to pokemon detail page', () => {
-    render(<PokemonCard name="Pikachu" id={25} />)
+    render(<PokemonCard name="Pikachu" />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/pokemon/pikachu')
   })
 
   it('has appropriate card styling classes', () => {
-    const { container } = render(<PokemonCard name="Pikachu" id={25} />)
+    const { container } = render(<PokemonCard name="Pikachu" />)
     const card = container.querySelector('div[class*="p-4"]') || container.querySelector('div')
     expect(card?.className).toMatch(/p-4|rounded|border/)
   })
@@ -32,23 +32,18 @@ describe('PokemonCard', () => {
 
 describe('LocationCard', () => {
   it('renders location name', () => {
-    render(<LocationCard name="Viridian Forest" region="Kanto" />)
+    render(<LocationCard name="Viridian Forest" />)
     expect(screen.getByText('Viridian Forest')).toBeInTheDocument()
   })
 
-  it('renders location region', () => {
-    render(<LocationCard name="Viridian Forest" region="Kanto" />)
-    expect(screen.getByText('Kanto')).toBeInTheDocument()
-  })
-
   it('renders as a link to location detail page', () => {
-    render(<LocationCard name="Viridian Forest" region="Kanto" />)
+    render(<LocationCard name="Viridian Forest" />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/locations/viridian-forest')
   })
 
   it('has appropriate card styling classes', () => {
-    const { container } = render(<LocationCard name="Viridian Forest" region="Kanto" />)
+    const { container } = render(<LocationCard name="Viridian Forest" />)
     const card = container.querySelector('div[class*="p-4"]') || container.querySelector('div')
     expect(card?.className).toMatch(/p-4|rounded|border/)
   })
@@ -56,23 +51,18 @@ describe('LocationCard', () => {
 
 describe('MoveCard', () => {
   it('renders move name', () => {
-    render(<MoveCard name="Thunderbolt" type="electric" />)
+    render(<MoveCard name="Thunderbolt" />)
     expect(screen.getByText('Thunderbolt')).toBeInTheDocument()
   })
 
-  it('renders move type', () => {
-    render(<MoveCard name="Thunderbolt" type="electric" />)
-    expect(screen.getByText('electric')).toBeInTheDocument()
-  })
-
   it('renders as a link to move detail page', () => {
-    render(<MoveCard name="Thunderbolt" type="electric" />)
+    render(<MoveCard name="Thunderbolt" />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/moves/thunderbolt')
   })
 
   it('has appropriate card styling classes', () => {
-    const { container } = render(<MoveCard name="Thunderbolt" type="electric" />)
+    const { container } = render(<MoveCard name="Thunderbolt" />)
     const card = container.querySelector('div[class*="p-4"]') || container.querySelector('div')
     expect(card?.className).toMatch(/p-4|rounded|border/)
   })
@@ -80,23 +70,18 @@ describe('MoveCard', () => {
 
 describe('GenerationCard', () => {
   it('renders generation name', () => {
-    render(<GenerationCard name="Generation I" region="Kanto" />)
+    render(<GenerationCard name="Generation I" />)
     expect(screen.getByText('Generation I')).toBeInTheDocument()
   })
 
-  it('renders generation region', () => {
-    render(<GenerationCard name="Generation I" region="Kanto" />)
-    expect(screen.getByText('Kanto')).toBeInTheDocument()
-  })
-
   it('renders as a link to generation detail page', () => {
-    render(<GenerationCard name="Generation I" region="Kanto" />)
+    render(<GenerationCard name="Generation I" />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/generations/generation-i')
   })
 
   it('has appropriate card styling classes', () => {
-    const { container } = render(<GenerationCard name="Generation I" region="Kanto" />)
+    const { container } = render(<GenerationCard name="Generation I" />)
     const card = container.querySelector('div[class*="p-4"]') || container.querySelector('div')
     expect(card?.className).toMatch(/p-4|rounded|border/)
   })

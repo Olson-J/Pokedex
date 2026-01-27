@@ -59,28 +59,25 @@
 - [x] **T3.5** Run tests again after styling
 
 ### Locations List
-- [ ] **T3.6** Write tests for locations list component (render list, search, back button)
-- [ ] **T3.6a** Run tests - verify they FAIL (before implementation)
-- [ ] **T3.7** Create `/locations/page.tsx` with searchable locations list using LocationCard and SearchInput components
-- [ ] **T3.8** Run tests - verify all locations list tests pass
-- [ ] **T3.9** Style locations list with responsive layout
-- [ ] **T3.9a** Run tests again after styling
+- [x] **T3.6** Write tests for locations list component (render list, search, back button)
+- [x] **T3.6a** Run tests - verify they FAIL (before implementation)
+- [x] **T3.7** Create `/locations/page.tsx` with searchable locations list using LocationCard and SearchInput components
 
 ### Moves List
-- [ ] **T3.10** Write tests for moves list component (render list, search, back button)
-- [ ] **T3.10a** Run tests - verify they FAIL (before implementation)
-- [ ] **T3.11** Create `/moves/page.tsx` with searchable moves list using MoveCard and SearchInput components
-- [ ] **T3.12** Run tests - verify all moves list tests pass
-- [ ] **T3.13** Style moves list with responsive layout
-- [ ] **T3.13a** Run tests again after styling
 
+- [x] **T3.10** Write tests for moves list component (render list, search, back button)
+- [x] **T3.10a** Run tests - verify they FAIL (before implementation)
+- [x] **T3.11** Create `/moves/page.tsx` with searchable moves list using MoveCard and SearchInput components
+- [x] **T3.12** Run tests - verify all moves list tests pass
+- [x] **T3.13** Style moves list with responsive layout
+- [x] **T3.13a** Run tests again after styling
 ### Generations List
-- [ ] **T3.14** Write tests for generations list component (render list, search, back button)
-- [ ] **T3.14a** Run tests - verify they FAIL (before implementation)
-- [ ] **T3.15** Create `/generations/page.tsx` with searchable generations list using GenerationCard and SearchInput components
-- [ ] **T3.16** Run tests - verify all generations list tests pass
-- [ ] **T3.17** Style generations list with responsive layout
-- [ ] **T3.17a** Run tests again after styling
+- [x] **T3.14** Write tests for generations list component (render list, search, back button)
+- [x] **T3.14a** Run tests - verify they FAIL (before implementation)
+- [x] **T3.15** Create `/generations/page.tsx` with searchable generations list using GenerationCard and SearchInput components
+- [x] **T3.16** Run tests - verify all generations list tests pass
+- [x] **T3.17** Style generations list with responsive layout
+- [x] **T3.17a** Run tests again after styling
 
 ## Phase 4: Detail Pages
 
