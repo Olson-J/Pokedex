@@ -119,15 +119,15 @@
 - [x] **T4.22b** Run tests again after styling
 
 ### Generation Detail Page
-- [ ] **T4.23** Write tests for generation detail page (render name, region, Pokemon links, back button)
-- [ ] **T4.23a** Run tests - verify they FAIL (before implementation)
-- [ ] **T4.24** Create dynamic route `/generations/[name]/page.tsx`
-- [ ] **T4.25** Display generation name and primary region
-- [ ] **T4.26** Display list of Pokemon in the generation (clickable links)
-- [ ] **T4.27** Add back button to generation detail page (returns to `/generations`)
-- [ ] **T4.28** Run tests - verify all generation detail tests pass
-- [ ] **T4.28a** Style generation detail page with responsive layout (mobile/desktop)
-- [ ] **T4.28b** Run tests again after styling
+- [x] **T4.23** Write tests for generation detail page (render name, region, Pokemon links, back button)
+- [x] **T4.23a** Run tests - verify they FAIL (before implementation)
+- [x] **T4.24** Create dynamic route `/generations/[name]/page.tsx`
+- [x] **T4.25** Display generation name and primary region
+- [x] **T4.26** Display list of Pokemon in the generation (clickable links)
+- [x] **T4.27** Add back button to generation detail page (returns to `/generations`)
+- [x] **T4.28** Run tests - verify all generation detail tests pass
+- [x] **T4.28a** Style generation detail page with responsive layout (mobile/desktop)
+- [x] **T4.28b** Run tests again after styling
 
 ## Phase 5: Cross-Page Navigation & Linking
 
