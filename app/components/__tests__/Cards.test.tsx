@@ -32,18 +32,18 @@ describe('PokemonCard', () => {
 
 describe('LocationCard', () => {
   it('renders location name', () => {
-    render(<LocationCard name="Viridian Forest" />)
+    render(<LocationCard name="viridian-forest" />)
     expect(screen.getByText('Viridian Forest')).toBeInTheDocument()
   })
 
   it('renders as a link to location detail page', () => {
-    render(<LocationCard name="Viridian Forest" />)
+    render(<LocationCard name="viridian-forest" />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/locations/viridian-forest')
   })
 
   it('has appropriate card styling classes', () => {
-    const { container } = render(<LocationCard name="Viridian Forest" />)
+    const { container } = render(<LocationCard name="viridian-forest" />)
     const card = container.querySelector('div[class*="p-4"]') || container.querySelector('div')
     expect(card?.className).toMatch(/p-4|rounded|border/)
   })

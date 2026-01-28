@@ -96,15 +96,15 @@
 - [x] **T4.9b** Run tests again after styling
 
 ### Location Detail Page
-- [ ] **T4.10** Write tests for location detail page (render name, region, sub-areas, Pokemon links, back button)
-- [ ] **T4.10a** Run tests - verify they FAIL (before implementation)
-- [ ] **T4.11** Create dynamic route `/locations/[name]/page.tsx`
-- [ ] **T4.12** Display location name and region
-- [ ] **T4.13** Display sub-areas with Pokemon that can be found there (clickable links)
-- [ ] **T4.14** Add back button to location detail page (returns to `/locations`)
-- [ ] **T4.15** Run tests - verify all location detail tests pass
-- [ ] **T4.15a** Style location detail page with responsive layout (mobile/desktop)
-- [ ] **T4.15b** Run tests again after styling
+- [x] **T4.10** Write tests for location detail page (render name, region, sub-areas, Pokemon links, back button)
+- [x] **T4.10a** Run tests - verify they FAIL (before implementation)
+- [x] **T4.11** Create dynamic route `/locations/[name]/page.tsx`
+- [x] **T4.12** Display location name and region
+- [x] **T4.13** Display sub-areas with Pokemon that can be found there (clickable links)
+- [x] **T4.14** Add back button to location detail page (returns to `/locations`)
+- [x] **T4.15** Run tests - verify all location detail tests pass
+- [x] **T4.15a** Style location detail page with responsive layout (mobile/desktop)
+- [x] **T4.15b** Run tests again after styling
 
 ### Move Detail Page
 - [ ] **T4.16** Write tests for move detail page (render name, type, stats, flavor text, Pokemon links, back button)

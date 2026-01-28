@@ -27,25 +27,37 @@ describe('Pokemon List Page', () => {
     })
   })
 
-  it('renders page title', () => {
+  it('renders page title', async () => {
     render(<PokemonListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
+    )
     expect(screen.getByRole('heading', { name: /pokemon/i })).toBeInTheDocument()
   })
 
-  it('renders search input with placeholder', () => {
+  it('renders search input with placeholder', async () => {
     render(<PokemonListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
+    )
     const input = screen.getByPlaceholderText(/search/i)
     expect(input).toBeInTheDocument()
   })
 
-  it('renders a back button', () => {
+  it('renders a back button', async () => {
     render(<PokemonListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
+    )
     const backButton = screen.getByRole('button', { name: /back|←/i })
     expect(backButton).toBeInTheDocument()
   })
 
-  it('renders pokemon cards', () => {
+  it('renders pokemon cards', async () => {
     render(<PokemonListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
+    )
     // Should render at least some pokemon cards
     const pokemonCards = screen.queryAllByRole('link', { name: /pikachu|charizard|blastoise/i })
     expect(pokemonCards.length).toBeGreaterThanOrEqual(0)
@@ -54,6 +66,10 @@ describe('Pokemon List Page', () => {
   it('filters pokemon when searching', async () => {
     const user = userEvent.setup()
     render(<PokemonListPage />)
+
+    await waitFor(() =>
+      expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
+    )
 
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'pikachu')
@@ -66,6 +82,10 @@ describe('Pokemon List Page', () => {
     const user = userEvent.setup()
     render(<PokemonListPage />)
 
+    await waitFor(() =>
+      expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
+    )
+
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'test')
     expect(searchInput).toHaveValue('test')
@@ -77,8 +97,11 @@ describe('Pokemon List Page', () => {
     expect(searchInput).toHaveValue('')
   })
 
-  it('renders pokemon list in a scrollable container', () => {
+  it('renders pokemon list in a scrollable container', async () => {
     const { container } = render(<PokemonListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
+    )
     // Should have some list structure
     expect(container.innerHTML).toMatch(/grid|flex|list/)
   })

@@ -44,25 +44,37 @@ describe('Moves List Page', () => {
     })
   })
 
-  it('renders page title', () => {
+  it('renders page title', async () => {
     render(<MovesListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading moves/i)).not.toBeInTheDocument()
+    )
     expect(screen.getByRole('heading', { name: /moves/i })).toBeInTheDocument()
   })
 
-  it('renders search input with placeholder', () => {
+  it('renders search input with placeholder', async () => {
     render(<MovesListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading moves/i)).not.toBeInTheDocument()
+    )
     const input = screen.getByPlaceholderText(/search/i)
     expect(input).toBeInTheDocument()
   })
 
-  it('renders a back button', () => {
+  it('renders a back button', async () => {
     render(<MovesListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading moves/i)).not.toBeInTheDocument()
+    )
     const backButton = screen.getByRole('button', { name: /back|←/i })
     expect(backButton).toBeInTheDocument()
   })
 
-  it('renders move cards', () => {
+  it('renders move cards', async () => {
     render(<MovesListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading moves/i)).not.toBeInTheDocument()
+    )
     // Should render at least some move cards
     const moveCards = screen.queryAllByRole('link')
     expect(moveCards.length).toBeGreaterThanOrEqual(0)
@@ -71,6 +83,10 @@ describe('Moves List Page', () => {
   it('filters moves when searching', async () => {
     const user = userEvent.setup()
     render(<MovesListPage />)
+
+    await waitFor(() =>
+      expect(screen.queryByText(/loading moves/i)).not.toBeInTheDocument()
+    )
 
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'thunder')
@@ -83,6 +99,10 @@ describe('Moves List Page', () => {
     const user = userEvent.setup()
     render(<MovesListPage />)
 
+    await waitFor(() =>
+      expect(screen.queryByText(/loading moves/i)).not.toBeInTheDocument()
+    )
+
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'test')
     expect(searchInput).toHaveValue('test')
@@ -94,8 +114,11 @@ describe('Moves List Page', () => {
     expect(searchInput).toHaveValue('')
   })
 
-  it('renders moves list in a scrollable container', () => {
+  it('renders moves list in a scrollable container', async () => {
     const { container } = render(<MovesListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading moves/i)).not.toBeInTheDocument()
+    )
     // Should have some list structure
     expect(container.innerHTML).toMatch(/grid|flex|list/)
   })

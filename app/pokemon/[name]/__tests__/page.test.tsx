@@ -48,8 +48,9 @@ const mockLocationData = {
 }
 
 const mockEncountersData = [
-  { location_area: { name: 'viridian-forest', url: 'https://pokeapi.co/api/v2/location-area/321/' } },
-  { location_area: { name: 'route-2', url: 'https://pokeapi.co/api/v2/location-area/7/' } },
+  { location_area: { name: 'viridian-forest-area', url: 'https://pokeapi.co/api/v2/location-area/321/' } },
+  { location_area: { name: 'kanto-route-2-south-towards-viridian-city', url: 'https://pokeapi.co/api/v2/location-area/7/' } },
+  { location_area: { name: 'kanto-route-2-north-towards-pewter-city', url: 'https://pokeapi.co/api/v2/location-area/8/' } },
 ]
 
 describe('Pokemon Detail Page', () => {
@@ -66,6 +67,36 @@ describe('Pokemon Detail Page', () => {
         return Promise.resolve({
           ok: true,
           json: async () => mockEncountersData,
+        })
+      }
+      if (url.includes('/location-area/321')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({
+            id: 321,
+            name: 'viridian-forest-area',
+            location: { name: 'viridian-forest', url: 'https://pokeapi.co/api/v2/location/1/' },
+          }),
+        })
+      }
+      if (url.includes('/location-area/7')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({
+            id: 7,
+            name: 'kanto-route-2-south-towards-viridian-city',
+            location: { name: 'kanto-route-2', url: 'https://pokeapi.co/api/v2/location/2/' },
+          }),
+        })
+      }
+      if (url.includes('/location-area/8')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({
+            id: 8,
+            name: 'kanto-route-2-north-towards-pewter-city',
+            location: { name: 'kanto-route-2', url: 'https://pokeapi.co/api/v2/location/2/' },
+          }),
         })
       }
       return Promise.resolve({ ok: true, json: async () => ({}) })
@@ -115,8 +146,8 @@ describe('Pokemon Detail Page', () => {
   it('renders location links', async () => {
     const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
     render(page)
-    // Location names have dashes replaced with spaces in display
     expect(screen.getByText(/viridian forest/i)).toBeInTheDocument()
+    expect(screen.getByText(/kanto route 2/i)).toBeInTheDocument()
   })
 
   it('renders move links', async () => {

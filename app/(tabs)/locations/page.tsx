@@ -25,7 +25,7 @@ export default function LocationsListPage() {
     try {
       setLoading(true)
       setError(null)
-      const response = await fetch('https://pokeapi.co/api/v2/location?limit=1000')
+      const response = await fetch('https://pokeapi.co/api/v2/location?limit=10000')
       if (!response.ok) throw new Error('Failed to fetch locations')
       const data = await response.json()
       setAllLocations(data.results)
@@ -37,10 +37,23 @@ export default function LocationsListPage() {
     }
   }
 
+  // Format location name for display
+  const formatLocationName = (name: string): string => {
+    return name
+      .replace(/-area$/, '') // Remove trailing "-area"
+      .replace(/-area-\d+$/, '') // Remove trailing "-area-1", "-area-2", etc.
+      .replace(/-(nw|ne|sw|se|b1f|b2f|1f|2f|3f)$/i, '') // Remove directional suffixes and floor indicators
+      .replace(/-/g, ' ') // Replace hyphens with spaces
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+      .join(' ')
+  }
+
   const filteredLocations = useMemo(() => {
-    return allLocations.filter((location) =>
-      location.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-    )
+    return allLocations.filter((location) => {
+      const displayName = formatLocationName(location.name)
+      return displayName.toLowerCase().includes(searchTerm.toLowerCase())
+    })
   }, [searchTerm, allLocations])
 
   const handleRetry = () => {

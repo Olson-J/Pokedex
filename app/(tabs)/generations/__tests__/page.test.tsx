@@ -1,4 +1,4 @@
-import { render, screen } from '@/app/lib/test-utils'
+import { render, screen, waitFor } from '@/app/lib/test-utils'
 import userEvent from '@testing-library/user-event'
 import GenerationsListPage from '@/app/\(tabs\)/generations/page'
 
@@ -32,25 +32,37 @@ describe('Generations List Page', () => {
     })
   })
 
-  it('renders page title', () => {
+  it('renders page title', async () => {
     render(<GenerationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading generations/i)).not.toBeInTheDocument()
+    )
     expect(screen.getByRole('heading', { name: /generations/i })).toBeInTheDocument()
   })
 
-  it('renders search input with placeholder', () => {
+  it('renders search input with placeholder', async () => {
     render(<GenerationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading generations/i)).not.toBeInTheDocument()
+    )
     const input = screen.getByPlaceholderText(/search/i)
     expect(input).toBeInTheDocument()
   })
 
-  it('renders a back button', () => {
+  it('renders a back button', async () => {
     render(<GenerationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading generations/i)).not.toBeInTheDocument()
+    )
     const backButton = screen.getByRole('button', { name: /back|←/i })
     expect(backButton).toBeInTheDocument()
   })
 
-  it('renders generation cards', () => {
+  it('renders generation cards', async () => {
     render(<GenerationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading generations/i)).not.toBeInTheDocument()
+    )
     const cards = screen.queryAllByRole('link')
     expect(cards.length).toBeGreaterThanOrEqual(0)
   })
@@ -58,6 +70,10 @@ describe('Generations List Page', () => {
   it('filters generations when searching', async () => {
     const user = userEvent.setup()
     render(<GenerationsListPage />)
+
+    await waitFor(() =>
+      expect(screen.queryByText(/loading generations/i)).not.toBeInTheDocument()
+    )
 
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'generation-i')
@@ -67,6 +83,10 @@ describe('Generations List Page', () => {
   it('clears search results when search is cleared', async () => {
     const user = userEvent.setup()
     render(<GenerationsListPage />)
+
+    await waitFor(() =>
+      expect(screen.queryByText(/loading generations/i)).not.toBeInTheDocument()
+    )
 
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'test')
@@ -78,8 +98,11 @@ describe('Generations List Page', () => {
     expect(searchInput).toHaveValue('')
   })
 
-  it('renders generations list in a scrollable container', () => {
+  it('renders generations list in a scrollable container', async () => {
     const { container } = render(<GenerationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading generations/i)).not.toBeInTheDocument()
+    )
     expect(container.innerHTML).toMatch(/grid|flex|list/)
   })
 })

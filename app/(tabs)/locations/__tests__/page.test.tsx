@@ -12,55 +12,52 @@ global.fetch = jest.fn()
 
 const mockLocationsData = {
   results: [
-    { name: 'Kanto Region', url: 'https://pokeapi.co/api/v2/location/1/' },
-    { name: 'Johto Region', url: 'https://pokeapi.co/api/v2/location/2/' },
-    { name: 'Hoenn Region', url: 'https://pokeapi.co/api/v2/location/3/' },
+    { name: 'canalave-city', url: 'https://pokeapi.co/api/v2/location/1/' },
+    { name: 'eterna-city', url: 'https://pokeapi.co/api/v2/location/2/' },
+    { name: 'pastoria-city', url: 'https://pokeapi.co/api/v2/location/3/' },
   ],
-}
-
-// Mock location regions data
-const mockLocationRegions = {
-  1: 'Kanto',
-  2: 'Johto',
-  3: 'Hoenn',
 }
 
 describe('Locations List Page', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    ;(global.fetch as jest.Mock).mockImplementation((url: string) => {
-      if (url.includes('/location?')) {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockLocationsData,
-        })
-      }
-      return Promise.resolve({
-        ok: true,
-        json: async () => ({ region: { name: 'Kanto' } }),
-      })
+    ;(global.fetch as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: async () => mockLocationsData,
     })
   })
 
-  it('renders page title', () => {
+  it('renders page title', async () => {
     render(<LocationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
+    )
     expect(screen.getByRole('heading', { name: /locations/i })).toBeInTheDocument()
   })
 
-  it('renders search input with placeholder', () => {
+  it('renders search input with placeholder', async () => {
     render(<LocationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
+    )
     const input = screen.getByPlaceholderText(/search/i)
     expect(input).toBeInTheDocument()
   })
 
-  it('renders a back button', () => {
+  it('renders a back button', async () => {
     render(<LocationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
+    )
     const backButton = screen.getByRole('button', { name: /back|←/i })
     expect(backButton).toBeInTheDocument()
   })
 
-  it('renders location cards', () => {
+  it('renders location cards', async () => {
     render(<LocationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
+    )
     // Should render at least some location cards
     const locationCards = screen.queryAllByRole('link')
     expect(locationCards.length).toBeGreaterThanOrEqual(0)
@@ -69,6 +66,10 @@ describe('Locations List Page', () => {
   it('filters locations when searching', async () => {
     const user = userEvent.setup()
     render(<LocationsListPage />)
+
+    await waitFor(() =>
+      expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
+    )
 
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'kanto')
@@ -81,6 +82,10 @@ describe('Locations List Page', () => {
     const user = userEvent.setup()
     render(<LocationsListPage />)
 
+    await waitFor(() =>
+      expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
+    )
+
     const searchInput = screen.getByPlaceholderText(/search/i)
     await user.type(searchInput, 'test')
     expect(searchInput).toHaveValue('test')
@@ -92,8 +97,11 @@ describe('Locations List Page', () => {
     expect(searchInput).toHaveValue('')
   })
 
-  it('renders locations list in a scrollable container', () => {
+  it('renders locations list in a scrollable container', async () => {
     const { container } = render(<LocationsListPage />)
+    await waitFor(() =>
+      expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
+    )
     // Should have some list structure
     expect(container.innerHTML).toMatch(/grid|flex|list/)
   })
