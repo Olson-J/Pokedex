@@ -82,18 +82,18 @@
 ## Phase 4: Detail Pages
 
 ### Pokemon Detail Page
-- [ ] **T4.1** Write tests for Pokemon detail page (render info, display stats, sprites, location links, move links, back button)
-- [ ] **T4.1a** Run tests - verify they FAIL (before implementation)
-- [ ] **T4.2** Create dynamic route `/pokemon/[name]/page.tsx`
-- [ ] **T4.3** Display Pokemon name, ID, and types
-- [ ] **T4.4** Display Pokemon stats (HP, Attack, Defense, Sp. Atk, Sp. Def, Speed)
-- [ ] **T4.5** Display normal and shiny sprites using Next.js `<Image>` component
-- [ ] **T4.6** Fetch and display locations where Pokemon can be found (as clickable links)
-- [ ] **T4.7** Fetch and display moves Pokemon can learn (as clickable links)
-- [ ] **T4.8** Add back button to Pokemon detail page (returns to `/pokemon`)
-- [ ] **T4.9** Run tests - verify all Pokemon detail tests pass
-- [ ] **T4.9a** Style Pokemon detail page with responsive layout (mobile/desktop)
-- [ ] **T4.9b** Run tests again after styling
+- [x] **T4.1** Write tests for Pokemon detail page (render info, display stats, sprites, location links, move links, back button)
+- [x] **T4.1a** Run tests - verify they FAIL (before implementation)
+- [x] **T4.2** Create dynamic route `/pokemon/[name]/page.tsx`
+- [x] **T4.3** Display Pokemon name and types
+- [x] **T4.4** Display Pokemon stats (HP, Attack, Defense, Sp. Atk, Sp. Def, Speed)
+- [x] **T4.5** Display normal and shiny sprites using Next.js `<Image>` component
+- [x] **T4.6** Fetch and display locations where Pokemon can be found (as clickable links)
+- [x] **T4.7** Fetch and display moves Pokemon can learn (as clickable links)
+- [x] **T4.8** Add back button to Pokemon detail page (returns to `/pokemon`)
+- [x] **T4.9** Run tests - verify all Pokemon detail tests pass
+- [x] **T4.9a** Style Pokemon detail page with responsive layout (mobile/desktop)
+- [x] **T4.9b** Run tests again after styling
 
 ### Location Detail Page
 - [ ] **T4.10** Write tests for location detail page (render name, region, sub-areas, Pokemon links, back button)
