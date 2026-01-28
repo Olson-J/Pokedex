@@ -107,16 +107,16 @@
 - [x] **T4.15b** Run tests again after styling
 
 ### Move Detail Page
-- [ ] **T4.16** Write tests for move detail page (render name, type, stats, flavor text, Pokemon links, back button)
-- [ ] **T4.16a** Run tests - verify they FAIL (before implementation)
-- [ ] **T4.17** Create dynamic route `/moves/[name]/page.tsx`
-- [ ] **T4.18** Display move name, type, accuracy, power, and power points
-- [ ] **T4.19** Display flavor text for each game generation
-- [ ] **T4.20** Display list of Pokemon that can learn the move (clickable links)
-- [ ] **T4.21** Add back button to move detail page (returns to `/moves`)
-- [ ] **T4.22** Run tests - verify all move detail tests pass
-- [ ] **T4.22a** Style move detail page with responsive layout (mobile/desktop)
-- [ ] **T4.22b** Run tests again after styling
+- [x] **T4.16** Write tests for move detail page (render name, type, stats, flavor text, Pokemon links, back button)
+- [x] **T4.16a** Run tests - verify they FAIL (before implementation)
+- [x] **T4.17** Create dynamic route `/moves/[name]/page.tsx`
+- [x] **T4.18** Display move name, type, accuracy, power, and power points
+- [x] **T4.19** Display flavor text for each game generation
+- [x] **T4.20** Display list of Pokemon that can learn the move (clickable links)
+- [x] **T4.21** Add back button to move detail page (returns to `/moves`)
+- [x] **T4.22** Run tests - verify all move detail tests pass
+- [x] **T4.22a** Style move detail page with responsive layout (mobile/desktop)
+- [x] **T4.22b** Run tests again after styling
 
 ### Generation Detail Page
 - [ ] **T4.23** Write tests for generation detail page (render name, region, Pokemon links, back button)
