@@ -7,7 +7,9 @@ export default function MareepBanner() {
   const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {
-    setIsHydrated(true)
+    // Suppress hydration mismatch warning by deferring state update
+    const timer = setTimeout(() => setIsHydrated(true), 0)
+    return () => clearTimeout(timer)
   }, [])
 
   if (!isHydrated) {

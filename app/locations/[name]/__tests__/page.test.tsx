@@ -4,7 +4,9 @@ jest.mock('next/navigation', () => ({
 }))
 
 jest.mock('next/link', () => {
-  return ({ children, href }: any) => <a href={href}>{children}</a>
+  return function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
+    return <a href={href}>{children}</a>
+  }
 })
 
 import { render, screen } from '@/app/lib/test-utils'

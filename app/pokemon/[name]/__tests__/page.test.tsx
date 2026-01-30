@@ -4,14 +4,16 @@ jest.mock('next/navigation', () => ({
 }))
 
 jest.mock('next/link', () => {
-  return ({ children, href }: any) => <a href={href}>{children}</a>
+  return function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
+    return <a href={href}>{children}</a>
+  }
 })
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: function MockImage(props: Record<string, unknown>) {
     // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img {...props} />
+    return <img {...(props as Record<string, unknown>)} />
   },
 }))
 
