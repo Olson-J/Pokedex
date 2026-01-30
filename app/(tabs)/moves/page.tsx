@@ -35,8 +35,7 @@ export default function MovesListPage() {
     }
   }
 
-  const filteredMoves = useMemo(() => {
-    retuhandleRetry = () => {
+  const handleRetry = () => {
     fetchMoves()
   }
 
@@ -57,7 +56,8 @@ export default function MovesListPage() {
             <p className="text-gray-600 dark:text-gray-400">Loading moves...</p>
           </div>
         ) : (
-          <MovesSearchList allMoves={allMoves} /
+          <MovesSearchList allMoves={allMoves} />
+        )}
       </main>
     </div>
   )

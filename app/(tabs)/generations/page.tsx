@@ -35,8 +35,7 @@ export default function GenerationsListPage() {
     }
   }
 
-  const filteredGenerations = useMemo(() => {
-    retuhandleRetry = () => {
+  const handleRetry = () => {
     fetchGenerations()
   }
 
@@ -57,7 +56,8 @@ export default function GenerationsListPage() {
             <p className="text-gray-600 dark:text-gray-400">Loading generations...</p>
           </div>
         ) : (
-          <GenerationsSearchList allGenerations={allGenerations} /
+          <GenerationsSearchList allGenerations={allGenerations} />
+        )}
       </main>
     </div>
   )

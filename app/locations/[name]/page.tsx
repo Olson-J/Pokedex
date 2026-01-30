@@ -93,7 +93,7 @@ export default async function LocationDetailPage({
           <div className="mb-4">
             <BackButton />
           </div>
-          <ErrorDisplay message={`Location "${name}" not found or could not be loaded.`} />
+          <ErrorDisplay error={`Location "${name}" not found or could not be loaded.`} onRetry={() => window.location.reload()} />
         </div>
       </div>
     )
