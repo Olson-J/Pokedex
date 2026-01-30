@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
-import SearchInput from '@/app/components/SearchInput'
-import MoveCard from '@/app/components/MoveCard'
+import { useState, useEffect } from 'react'
 import BackButton from '@/app/components/BackButton'
 import ErrorDisplay from '@/app/components/ErrorDisplay'
+import MovesSearchList from '@/app/components/MovesSearchList'
 
 interface Move {
   name: string
@@ -13,7 +12,6 @@ interface Move {
 
 export default function MovesListPage() {
   const [allMoves, setAllMoves] = useState<Move[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -38,12 +36,7 @@ export default function MovesListPage() {
   }
 
   const filteredMoves = useMemo(() => {
-    return allMoves.filter((move) =>
-      move.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-    )
-  }, [searchTerm, allMoves])
-
-  const handleRetry = () => {
+    retuhandleRetry = () => {
     fetchMoves()
   }
 
@@ -53,19 +46,7 @@ export default function MovesListPage() {
         <div className="mb-3 sm:mb-4">
           <BackButton />
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
-          <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 truncate">Moves</h1>
-          <div className="w-full md:w-96">
-            <SearchInput
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder="Search moves..."
-            />
-          </div>
-        </div>
-        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 md:mt-3">
-          Showing {filteredMoves.length} of {allMoves.length}
-        </p>
+        <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 mb-3">Moves</h1>
       </div>
 
       <main className="flex-1 p-3 sm:p-4 md:p-6">
@@ -76,18 +57,7 @@ export default function MovesListPage() {
             <p className="text-gray-600 dark:text-gray-400">Loading moves...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
-            {filteredMoves.length > 0 ? (
-              filteredMoves.map((move) => (
-                <MoveCard key={move.name} name={move.name} />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-8 text-gray-600 dark:text-gray-400">
-                {searchTerm ? 'No moves found matching your search' : 'No moves available'}
-              </div>
-            )}
-          </div>
-        )}
+          <MovesSearchList allMoves={allMoves} /
       </main>
     </div>
   )

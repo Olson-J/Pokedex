@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
-import SearchInput from '@/app/components/SearchInput'
-import PokemonCard from '@/app/components/PokemonCard'
+import { useState, useEffect } from 'react'
+import PokemonSearchList from '@/app/components/PokemonSearchList'
 import BackButton from '@/app/components/BackButton'
 import ErrorDisplay from '@/app/components/ErrorDisplay'
 
@@ -13,7 +12,6 @@ interface Pokemon {
 
 export default function PokemonListPage() {
   const [allPokemon, setAllPokemon] = useState<Pokemon[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -37,12 +35,6 @@ export default function PokemonListPage() {
     }
   }
 
-  const filteredPokemon = useMemo(() => {
-    return allPokemon.filter((pokemon) =>
-      pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-    )
-  }, [searchTerm, allPokemon])
-
   const handleRetry = () => {
     fetchPokemon()
   }
@@ -53,19 +45,7 @@ export default function PokemonListPage() {
         <div className="mb-3 sm:mb-4">
           <BackButton />
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
-          <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 truncate">Pokemon</h1>
-          <div className="w-full md:w-96">
-            <SearchInput
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder="Search Pokemon..."
-            />
-          </div>
-        </div>
-        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 md:mt-3">
-          Showing {filteredPokemon.length} of {allPokemon.length}
-        </p>
+        <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 mb-3">Pokemon</h1>
       </div>
 
       <main className="flex-1 p-3 sm:p-4 md:p-6">
@@ -76,17 +56,7 @@ export default function PokemonListPage() {
             <p className="text-gray-600 dark:text-gray-400">Loading Pokemon...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
-            {filteredPokemon.length > 0 ? (
-              filteredPokemon.map((pokemon) => (
-                <PokemonCard key={pokemon.name} name={pokemon.name} />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-8 text-gray-600 dark:text-gray-400">
-                {searchTerm ? 'No Pokemon found matching your search' : 'No Pokemon available'}
-              </div>
-            )}
-          </div>
+          <PokemonSearchList allPokemon={allPokemon} />
         )}
       </main>
     </div>

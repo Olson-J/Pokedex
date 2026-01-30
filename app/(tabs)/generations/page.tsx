@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
-import SearchInput from '@/app/components/SearchInput'
-import GenerationCard from '@/app/components/GenerationCard'
+import { useState, useEffect } from 'react'
 import BackButton from '@/app/components/BackButton'
 import ErrorDisplay from '@/app/components/ErrorDisplay'
+import GenerationsSearchList from '@/app/components/GenerationsSearchList'
 
 interface Generation {
   name: string
@@ -13,7 +12,6 @@ interface Generation {
 
 export default function GenerationsListPage() {
   const [allGenerations, setAllGenerations] = useState<Generation[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -38,12 +36,7 @@ export default function GenerationsListPage() {
   }
 
   const filteredGenerations = useMemo(() => {
-    return allGenerations.filter((gen) =>
-      gen.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-    )
-  }, [searchTerm, allGenerations])
-
-  const handleRetry = () => {
+    retuhandleRetry = () => {
     fetchGenerations()
   }
 
@@ -53,19 +46,7 @@ export default function GenerationsListPage() {
         <div className="mb-3 sm:mb-4">
           <BackButton />
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
-          <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 truncate">Generations</h1>
-          <div className="w-full md:w-96">
-            <SearchInput
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder="Search generations..."
-            />
-          </div>
-        </div>
-        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 md:mt-3">
-          Showing {filteredGenerations.length} of {allGenerations.length}
-        </p>
+        <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 mb-3">Generations</h1>
       </div>
 
       <main className="flex-1 p-3 sm:p-4 md:p-6">
@@ -76,18 +57,7 @@ export default function GenerationsListPage() {
             <p className="text-gray-600 dark:text-gray-400">Loading generations...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
-            {filteredGenerations.length > 0 ? (
-              filteredGenerations.map((gen) => (
-                <GenerationCard key={gen.name} name={gen.name} />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-8 text-gray-600 dark:text-gray-400">
-                {searchTerm ? 'No generations found matching your search' : 'No generations available'}
-              </div>
-            )}
-          </div>
-        )}
+          <GenerationsSearchList allGenerations={allGenerations} /
       </main>
     </div>
   )

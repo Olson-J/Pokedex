@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
-import SearchInput from '@/app/components/SearchInput'
-import LocationCard from '@/app/components/LocationCard'
+import { useState, useEffect } from 'react'
+import LocationsSearchList from '@/app/components/LocationsSearchList'
 import BackButton from '@/app/components/BackButton'
 import ErrorDisplay from '@/app/components/ErrorDisplay'
 
@@ -13,7 +12,6 @@ interface Location {
 
 export default function LocationsListPage() {
   const [allLocations, setAllLocations] = useState<Location[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -37,25 +35,6 @@ export default function LocationsListPage() {
     }
   }
 
-  // Format location name for display
-  const formatLocationName = (name: string): string => {
-    return name
-      .replace(/-area$/, '') // Remove trailing "-area"
-      .replace(/-area-\d+$/, '') // Remove trailing "-area-1", "-area-2", etc.
-      .replace(/-(nw|ne|sw|se|b1f|b2f|1f|2f|3f)$/i, '') // Remove directional suffixes and floor indicators
-      .replace(/-/g, ' ') // Replace hyphens with spaces
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
-      .join(' ')
-  }
-
-  const filteredLocations = useMemo(() => {
-    return allLocations.filter((location) => {
-      const displayName = formatLocationName(location.name)
-      return displayName.toLowerCase().includes(searchTerm.toLowerCase())
-    })
-  }, [searchTerm, allLocations])
-
   const handleRetry = () => {
     fetchLocations()
   }
@@ -66,19 +45,7 @@ export default function LocationsListPage() {
         <div className="mb-3 sm:mb-4">
           <BackButton />
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
-          <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 truncate">Locations</h1>
-          <div className="w-full md:w-96">
-            <SearchInput
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder="Search locations..."
-            />
-          </div>
-        </div>
-        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 md:mt-3">
-          Showing {filteredLocations.length} of {allLocations.length}
-        </p>
+        <h1 className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 mb-3">Locations</h1>
       </div>
 
       <main className="flex-1 p-3 sm:p-4 md:p-6">
@@ -89,17 +56,7 @@ export default function LocationsListPage() {
             <p className="text-gray-600 dark:text-gray-400">Loading locations...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
-            {filteredLocations.length > 0 ? (
-              filteredLocations.map((location) => (
-                <LocationCard key={location.name} name={location.name} />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-8 text-gray-600 dark:text-gray-400">
-                {searchTerm ? 'No locations found matching your search' : 'No locations available'}
-              </div>
-            )}
-          </div>
+          <LocationsSearchList allLocations={allLocations} />
         )}
       </main>
     </div>
