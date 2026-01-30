@@ -23,7 +23,7 @@ export default function PokemonListPage() {
     try {
       setLoading(true)
       setError(null)
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025')
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=2000')
       if (!response.ok) throw new Error('Failed to fetch Pokemon')
       const data = await response.json()
       setAllPokemon(data.results)

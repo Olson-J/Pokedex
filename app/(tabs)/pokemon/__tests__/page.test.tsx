@@ -32,7 +32,7 @@ describe('Pokemon List Page', () => {
     await waitFor(() =>
       expect(screen.queryByText(/loading pokemon/i)).not.toBeInTheDocument()
     )
-    expect(screen.getByRole('heading', { name: /pokemon/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: /pokemon/i })).toBeInTheDocument()
   })
 
   it('renders search input with placeholder', async () => {

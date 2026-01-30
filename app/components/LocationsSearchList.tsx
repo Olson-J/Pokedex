@@ -20,13 +20,16 @@ export default function LocationsSearchList({ allLocations }: LocationsSearchLis
   const filteredLocations = useMemo(() => {
     return allLocations.filter((location) => {
       const displayName = formatLocationName(location.name)
-      return displayName.toLowerCase().includes(searchTerm.toLowerCase())
+      return displayName.toLowerCase().startsWith(searchTerm.toLowerCase())
     })
   }, [searchTerm, allLocations])
 
   return (
     <>
       <div className="mb-3">
+        <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">
+          Locations ({filteredLocations.length} of {allLocations.length})
+        </h2>
         <SearchInput
           value={searchTerm}
           onChange={setSearchTerm}

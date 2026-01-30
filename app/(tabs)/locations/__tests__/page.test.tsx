@@ -32,7 +32,7 @@ describe('Locations List Page', () => {
     await waitFor(() =>
       expect(screen.queryByText(/loading locations/i)).not.toBeInTheDocument()
     )
-    expect(screen.getByRole('heading', { name: /locations/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: /locations/i })).toBeInTheDocument()
   })
 
   it('renders search input with placeholder', async () => {

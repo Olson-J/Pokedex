@@ -25,6 +25,9 @@ export default function PokemonSearchList({ allPokemon }: PokemonSearchListProps
   return (
     <>
       <div className="mb-3">
+        <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">
+          Pokemon ({filteredPokemon.length} of {allPokemon.length})
+        </h2>
         <SearchInput
           value={searchTerm}
           onChange={setSearchTerm}
