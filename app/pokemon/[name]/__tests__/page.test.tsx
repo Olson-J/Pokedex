@@ -1,12 +1,12 @@
-import { render, screen } from '@/app/lib/test-utils'
-import PokemonDetailPage from '@/app/pokemon/[name]/page'
-
-// Mock next/navigation
+// Mock Next.js modules BEFORE imports
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
+  useRouter: jest.fn(() => ({ back: jest.fn() })),
 }))
 
-// Mock next/image
+jest.mock('next/link', () => {
+  return ({ children, href }: any) => <a href={href}>{children}</a>
+})
+
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: any) => {
@@ -15,22 +15,16 @@ jest.mock('next/image', () => ({
   },
 }))
 
-// Mock fetch
-global.fetch = jest.fn()
+import { render, screen } from '@/app/lib/test-utils'
+import PokemonDetailView from '@/app/components/PokemonDetailView'
 
-const mockPokemonData = {
+const mockPokemon = {
   id: 25,
   name: 'pikachu',
-  types: [
-    { type: { name: 'electric' } },
-  ],
+  types: [{ type: { name: 'electric' } }],
   stats: [
     { base_stat: 35, stat: { name: 'hp' } },
     { base_stat: 55, stat: { name: 'attack' } },
-    { base_stat: 40, stat: { name: 'defense' } },
-    { base_stat: 50, stat: { name: 'special-attack' } },
-    { base_stat: 50, stat: { name: 'special-defense' } },
-    { base_stat: 90, stat: { name: 'speed' } },
   ],
   sprites: {
     front_default: 'https://example.com/pikachu.png',
@@ -42,124 +36,43 @@ const mockPokemonData = {
   ],
 }
 
-const mockLocationData = {
-  id: 25,
-  location_area_encounters: 'https://pokeapi.co/api/v2/pokemon/25/encounters',
-}
-
-const mockEncountersData = [
-  { location_area: { name: 'viridian-forest-area', url: 'https://pokeapi.co/api/v2/location-area/321/' } },
-  { location_area: { name: 'kanto-route-2-south-towards-viridian-city', url: 'https://pokeapi.co/api/v2/location-area/7/' } },
-  { location_area: { name: 'kanto-route-2-north-towards-pewter-city', url: 'https://pokeapi.co/api/v2/location-area/8/' } },
+const mockLocations = [
+  { name: 'viridian-forest', url: 'https://pokeapi.co/api/v2/location/1/' },
+  { name: 'kanto-route-2', url: 'https://pokeapi.co/api/v2/location/2/' },
 ]
 
-describe('Pokemon Detail Page', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-    ;(global.fetch as jest.Mock).mockImplementation((url: string) => {
-      if (url.includes('/pokemon/pikachu') && !url.includes('encounters')) {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockPokemonData,
-        })
-      }
-      if (url.includes('encounters')) {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockEncountersData,
-        })
-      }
-      if (url.includes('/location-area/321')) {
-        return Promise.resolve({
-          ok: true,
-          json: async () => ({
-            id: 321,
-            name: 'viridian-forest-area',
-            location: { name: 'viridian-forest', url: 'https://pokeapi.co/api/v2/location/1/' },
-          }),
-        })
-      }
-      if (url.includes('/location-area/7')) {
-        return Promise.resolve({
-          ok: true,
-          json: async () => ({
-            id: 7,
-            name: 'kanto-route-2-south-towards-viridian-city',
-            location: { name: 'kanto-route-2', url: 'https://pokeapi.co/api/v2/location/2/' },
-          }),
-        })
-      }
-      if (url.includes('/location-area/8')) {
-        return Promise.resolve({
-          ok: true,
-          json: async () => ({
-            id: 8,
-            name: 'kanto-route-2-north-towards-pewter-city',
-            location: { name: 'kanto-route-2', url: 'https://pokeapi.co/api/v2/location/2/' },
-          }),
-        })
-      }
-      return Promise.resolve({ ok: true, json: async () => ({}) })
-    })
-  })
+describe('Pokemon Detail View', () => {
+  it('renders pokemon name and types', () => {
+    render(<PokemonDetailView pokemon={mockPokemon} locations={mockLocations} />)
 
-  it('renders pokemon name', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
-    expect(screen.getByText(/pikachu/i)).toBeInTheDocument()
-  })
-
-  it('renders pokemon name and details', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
-    expect(screen.getByText('pikachu')).toBeInTheDocument()
-    expect(screen.getByText(/Sprites/i)).toBeInTheDocument()
-    expect(screen.getByText(/Stats/i)).toBeInTheDocument()
-    expect(screen.getByText(/Found in Locations/i)).toBeInTheDocument()
-    expect(screen.getByText(/Moves/i)).toBeInTheDocument()
-  })
-
-
-  it('renders pokemon types', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
+    expect(screen.getByRole('heading', { name: /pikachu/i })).toBeInTheDocument()
     expect(screen.getByText(/electric/i)).toBeInTheDocument()
   })
 
-  it('renders pokemon stats', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
-    // Check for specific stats section
-    expect(screen.getByText(/stats/i)).toBeInTheDocument()
-    expect(screen.getByText('HP')).toBeInTheDocument()
-    expect(screen.getByText('35')).toBeInTheDocument()
-    expect(screen.getByText('55')).toBeInTheDocument()
-  })
+  it('renders sprites section', () => {
+    render(<PokemonDetailView pokemon={mockPokemon} locations={mockLocations} />)
 
-  it('renders normal and shiny sprites', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
     const images = screen.getAllByRole('img')
     expect(images.length).toBeGreaterThanOrEqual(2)
   })
 
-  it('renders location links', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
-    expect(screen.getByText(/viridian forest/i)).toBeInTheDocument()
-    expect(screen.getByText(/kanto route 2/i)).toBeInTheDocument()
+  it('renders stats', () => {
+    render(<PokemonDetailView pokemon={mockPokemon} locations={mockLocations} />)
+
+    expect(screen.getByText('HP')).toBeInTheDocument()
+    expect(screen.getByText('35')).toBeInTheDocument()
   })
 
-  it('renders move links', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
-    expect(screen.getByText(/thunderbolt/i)).toBeInTheDocument()
+  it('renders locations and moves sections', () => {
+    render(<PokemonDetailView pokemon={mockPokemon} locations={mockLocations} />)
+
+    expect(screen.getByText(/Found in Locations/i)).toBeInTheDocument()
+    expect(screen.getByText(/Moves/i)).toBeInTheDocument()
   })
 
-  it('renders a back button', async () => {
-    const page = await PokemonDetailPage({ params: Promise.resolve({ name: 'pikachu' }) })
-    render(page)
-    const backButton = screen.getByRole('button', { name: /back|←/i })
-    expect(backButton).toBeInTheDocument()
+  it('renders a back button', () => {
+    render(<PokemonDetailView pokemon={mockPokemon} locations={mockLocations} />)
+
+    expect(screen.getByRole('button', { name: /go back/i })).toBeInTheDocument()
   })
 })

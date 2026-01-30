@@ -1,0 +1,107 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import Link from 'next/link'
+import BackButton from '@/app/components/BackButton'
+import SearchInput from '@/app/components/SearchInput'
+import { formatGenerationName, formatTitleFromSlug } from '@/app/lib/formatters'
+
+interface Region {
+  name: string
+  url: string
+}
+
+interface PokemonSpecies {
+  name: string
+  url: string
+}
+
+interface GenerationData {
+  id: number
+  name: string
+  main_region: Region
+  pokemon_species: PokemonSpecies[]
+}
+
+interface GenerationDetailViewProps {
+  generation: GenerationData
+}
+
+export default function GenerationDetailView({ generation }: GenerationDetailViewProps) {
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const filteredPokemon = useMemo(() => {
+    return generation.pokemon_species.filter((pokemon) =>
+      pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+    )
+  }, [searchTerm, generation.pokemon_species])
+
+  const formatPokemonName = (name: string): string => {
+    return formatTitleFromSlug(name)
+  }
+
+  const formatRegionName = (name: string): string => {
+    return formatTitleFromSlug(name)
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 p-3 sm:p-4 md:p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-4">
+          <BackButton />
+        </div>
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-purple-300 dark:border-purple-700 p-4 sm:p-6">
+          {/* Header */}
+          <div className="mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-700 dark:text-purple-400">
+              {formatGenerationName(generation.name)}
+            </h1>
+          </div>
+
+          {/* Primary Region */}
+          <div className="mb-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-2">
+              Primary Region
+            </h2>
+            <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm capitalize border border-purple-300 dark:border-purple-700">
+              {formatRegionName(generation.main_region.name)}
+            </span>
+          </div>
+
+          {/* Pokemon List with Search */}
+          <div className="mb-6">
+            <div className="mb-3">
+              <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">
+                Pokemon ({filteredPokemon.length} of {generation.pokemon_species.length})
+              </h2>
+              <SearchInput
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder="Search Pokemon..."
+              />
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+              {filteredPokemon.length > 0 ? (
+                filteredPokemon.map((pokemon) => (
+                  <Link
+                    key={pokemon.name}
+                    href={`/pokemon/${pokemon.name}`}
+                    className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900 border border-purple-200 dark:border-purple-700 transition-colors"
+                  >
+                    <span className="text-sm text-gray-900 dark:text-white">
+                      {formatPokemonName(pokemon.name)}
+                    </span>
+                  </Link>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-8 text-gray-600 dark:text-gray-400">
+                  {searchTerm ? 'No Pokemon found matching your search' : 'No Pokemon available'}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -1,196 +1,54 @@
-import { render, screen } from '@/app/lib/test-utils'
-import LocationDetailPage from '../page'
-
-// Mock Next.js router
+// Mock Next.js modules BEFORE imports
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => ({
-    back: jest.fn(),
-  })),
+  useRouter: jest.fn(() => ({ back: jest.fn() })),
 }))
 
-// Mock the fetch API
-global.fetch = jest.fn()
+jest.mock('next/link', () => {
+  return ({ children, href }: any) => <a href={href}>{children}</a>
+})
 
-describe('Location Detail Page', () => {
-  beforeEach(() => {
-    ;(global.fetch as jest.Mock).mockClear()
-  })
+import { render, screen } from '@/app/lib/test-utils'
+import LocationDetailView from '@/app/components/LocationDetailView'
 
-  it('renders location name', async () => {
-    ;(global.fetch as jest.Mock)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'canalave-city',
-          region: { name: 'Sinnoh' },
-          areas: [
-            { name: 'canalave-city-area', url: 'https://pokeapi.co/api/v2/location-area/1' },
-          ],
-        }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'canalave-city-area',
-          pokemon_encounters: [
-            {
-              pokemon: { name: 'tentacool', url: 'https://pokeapi.co/api/v2/pokemon/72' },
-            },
-          ],
-        }),
-      })
+const mockLocation = {
+  id: 1,
+  name: 'viridian-forest',
+  region: { name: 'kanto', url: 'https://pokeapi.co/api/v2/region/1' },
+}
 
-    const page = await LocationDetailPage({
-      params: Promise.resolve({ name: 'canalave-city' }),
-    })
-    render(page)
+const mockAreas = [
+  {
+    id: 1,
+    name: 'viridian-forest-area',
+    pokemon_encounters: [
+      { pokemon: { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25' } },
+      { pokemon: { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1' } },
+    ],
+  },
+]
 
-    expect(screen.getByRole('heading', { name: 'Canalave City', level: 1 })).toBeInTheDocument()
-  })
+describe('Location Detail View', () => {
+  it('renders location name and region', () => {
+    render(<LocationDetailView location={mockLocation} areas={mockAreas} />)
 
-  it('renders location region', async () => {
-    ;(global.fetch as jest.Mock)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'canalave-city',
-          region: { name: 'Sinnoh' },
-          areas: [
-            { name: 'canalave-city-area', url: 'https://pokeapi.co/api/v2/location-area/1' },
-          ],
-        }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'canalave-city-area',
-          pokemon_encounters: [],
-        }),
-      })
-
-    const page = await LocationDetailPage({
-      params: Promise.resolve({ name: 'canalave-city' }),
-    })
-    render(page)
-
+    expect(screen.getByRole('heading', { level: 1, name: /viridian forest/i })).toBeInTheDocument()
     expect(screen.getByText(/Region:/i)).toBeInTheDocument()
-    expect(screen.getByText(/Sinnoh/i)).toBeInTheDocument()
+    expect(screen.getByText(/kanto/i)).toBeInTheDocument()
   })
 
-  it('renders Pokemon encounters', async () => {
-    ;(global.fetch as jest.Mock)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'viridian-forest',
-          region: { name: 'Kanto' },
-          areas: [
-            { name: 'viridian-forest-area', url: 'https://pokeapi.co/api/v2/location-area/1' },
-          ],
-        }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'viridian-forest-area',
-          pokemon_encounters: [
-            {
-              pokemon: { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25' },
-            },
-            {
-              pokemon: { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1' },
-            },
-          ],
-        }),
-      })
+  it('renders Pokemon encounters and links', () => {
+    render(<LocationDetailView location={mockLocation} areas={mockAreas} />)
 
-    const page = await LocationDetailPage({
-      params: Promise.resolve({ name: 'viridian-forest' }),
-    })
-    render(page)
+    const pikachuLink = screen.getByRole('link', { name: /pikachu/i })
+    const bulbasaurLink = screen.getByRole('link', { name: /bulbasaur/i })
 
-    expect(screen.getByText('pikachu')).toBeInTheDocument()
-    expect(screen.getByText('bulbasaur')).toBeInTheDocument()
+    expect(pikachuLink).toHaveAttribute('href', '/pokemon/pikachu')
+    expect(bulbasaurLink).toHaveAttribute('href', '/pokemon/bulbasaur')
   })
 
-  it('renders Pokemon links', async () => {
-    ;(global.fetch as jest.Mock)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'viridian-forest',
-          region: { name: 'Kanto' },
-          areas: [
-            { name: 'viridian-forest-area', url: 'https://pokeapi.co/api/v2/location-area/1' },
-          ],
-        }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'viridian-forest-area',
-          pokemon_encounters: [
-            {
-              pokemon: { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25' },
-            },
-            {
-              pokemon: { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1' },
-            },
-          ],
-        }),
-      })
+  it('renders a back button', () => {
+    render(<LocationDetailView location={mockLocation} areas={mockAreas} />)
 
-    const page = await LocationDetailPage({
-      params: Promise.resolve({ name: 'viridian-forest' }),
-    })
-    render(page)
-
-    const pokemonLinks = screen.getAllByRole('link')
-    const pikachuLinks = pokemonLinks.filter((link) => link.textContent?.toLowerCase().includes('pikachu'))
-    const bulbasaurLinks = pokemonLinks.filter((link) => link.textContent?.toLowerCase().includes('bulbasaur'))
-    
-    expect(pikachuLinks.length).toBeGreaterThan(0)
-    expect(bulbasaurLinks.length).toBeGreaterThan(0)
-    expect(pikachuLinks[0]).toHaveAttribute('href', '/pokemon/pikachu')
-    expect(bulbasaurLinks[0]).toHaveAttribute('href', '/pokemon/bulbasaur')
-  })
-
-  it('renders a back button', async () => {
-    ;(global.fetch as jest.Mock)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'canalave-city',
-          region: { name: 'Sinnoh' },
-          areas: [
-            { name: 'canalave-city-area', url: 'https://pokeapi.co/api/v2/location-area/1' },
-          ],
-        }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          id: 1,
-          name: 'canalave-city-area',
-          pokemon_encounters: [],
-        }),
-      })
-
-    const page = await LocationDetailPage({
-      params: Promise.resolve({ name: 'canalave-city' }),
-    })
-    render(page)
-
-    const backButton = screen.getByLabelText('Go back to previous page')
-    expect(backButton).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /go back/i })).toBeInTheDocument()
   })
 })
