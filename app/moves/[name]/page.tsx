@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BackButton from '@/app/components/BackButton'
+import MoveLearnedByList from '@/app/components/MoveLearnedByList'
 import { formatTitleFromSlug } from '@/app/lib/formatters'
 
 interface MoveDetailProps {
@@ -80,27 +81,27 @@ export default async function MoveDetailPage({ params }: MoveDetailProps) {
         <div className="mb-4">
           <BackButton />
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4 sm:p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-purple-300 dark:border-purple-700 p-4 sm:p-6">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-700 dark:text-purple-400">
               {formatMoveName(move.name)}
             </h1>
           </div>
 
           {/* Type */}
           <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-2">
               Type
             </h2>
-            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm capitalize">
+            <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm capitalize border border-purple-300 dark:border-purple-700">
               {move.type.name}
             </span>
           </div>
 
           {/* Stats */}
           <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">
               Stats
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -132,14 +133,14 @@ export default async function MoveDetailPage({ params }: MoveDetailProps) {
           {/* Flavor Text */}
           {uniqueFlavorTexts.length > 0 && (
             <div className="mb-6">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">
+              <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">
                 Flavor Text
               </h2>
               <div className="space-y-3">
                 {uniqueFlavorTexts.map((entry, index) => (
                   <div
                     key={index}
-                    className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg"
+                    className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg border border-purple-200 dark:border-purple-700"
                   >
                     <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">
                       {formatVersionGroupName(entry.version_group.name)}
@@ -154,31 +155,9 @@ export default async function MoveDetailPage({ params }: MoveDetailProps) {
           )}
 
           {/* Pokemon that can learn this move */}
-          <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">
-              Learned by Pokemon ({move.learned_by_pokemon.length})
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              {move.learned_by_pokemon.slice(0, 50).map((pokemonRef) => (
-                <Link
-                  key={pokemonRef.name}
-                  href={`/pokemon/${pokemonRef.name}`}
-                  className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <span className="text-sm text-gray-900 dark:text-white">
-                    {formatPokemonName(pokemonRef.name)}
-                  </span>
-                </Link>
-              ))}
-              {move.learned_by_pokemon.length > 50 && (
-                <div className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    +{move.learned_by_pokemon.length - 50} more
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
+          <MoveLearnedByList 
+            pokemon={move.learned_by_pokemon}
+          />
         </div>
       </div>
     </div>

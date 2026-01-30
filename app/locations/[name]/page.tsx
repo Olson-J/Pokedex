@@ -105,10 +105,10 @@ export default async function LocationDetailPage({
         <div className="mb-4">
           <BackButton />
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4 sm:p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-purple-300 dark:border-purple-700 p-4 sm:p-6">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-700 dark:text-purple-400">
               {formatLocationName(location.name)}
             </h1>
             {location && (
@@ -122,9 +122,9 @@ export default async function LocationDetailPage({
           {validAreas.length > 0 ? (
             <div className="space-y-6">
               {validAreas.map((area) => (
-                <div key={area.name} className="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-                  <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                    {formatSubLocationName(area.name, location.name)}
+                <div key={area.name} className="border border-purple-200 dark:border-purple-700 rounded-lg p-4">
+                  <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">
+                    Pokemon found in {formatSubLocationName(area.name, location.name)} ({area.pokemon_encounters.length})
                   </h2>
                   {area.pokemon_encounters.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
@@ -132,7 +132,7 @@ export default async function LocationDetailPage({
                         <Link
                           key={encounter.pokemon.name}
                           href={`/pokemon/${encounter.pokemon.name}`}
-                          className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                          className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900 border border-purple-200 dark:border-purple-700 transition-colors"
                         >
                           <span className="text-sm text-gray-900 dark:text-white capitalize">
                             {encounter.pokemon.name.replace(/-/g, ' ')}

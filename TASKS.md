@@ -131,28 +131,28 @@
 
 ## Phase 5: Cross-Page Navigation & Linking
 
-- [ ] **T5.1** Verify all Pokemon names in lists link to `/pokemon/[name]`
-- [ ] **T5.2** Verify all locations in lists and detail pages link to `/locations/[name]`
-- [ ] **T5.3** Verify all moves in lists and detail pages link to `/moves/[name]`
-- [ ] **T5.4** Verify all generations in lists link to `/generations/[name]`
-- [ ] **T5.5** Test back button on all pages (list and detail pages)
+- [x] **T5.1** Verify all Pokemon names in lists link to `/pokemon/[name]`
+- [x] **T5.2** Verify all locations in lists and detail pages link to `/locations/[name]`
+- [x] **T5.3** Verify all moves in lists and detail pages link to `/moves/[name]`
+- [x] **T5.4** Verify all generations in lists link to `/generations/[name]`
+- [x] **T5.5** Test back button on all pages (list and detail pages)
 
 ## Phase 6: Responsive Design & Polish
 
-- [ ] **T6.1** Test all list pages on mobile (< 640px), tablet (640px-1024px), and desktop (> 1024px)
-- [ ] **T6.2** Test all detail pages on mobile, tablet, and desktop
-- [ ] **T6.3** Verify tab navigation is mobile-friendly (stack on mobile, horizontal on desktop)
-- [ ] **T6.4** Ensure images are responsive and load efficiently
-- [ ] **T6.5** Test search functionality on mobile (touch keyboard input)
-- [ ] **T6.6** Verify all spacing, padding, and font sizes are appropriate across screen sizes
+- [x] **T6.1** Test all list pages on mobile (< 640px), tablet (640px-1024px), and desktop (> 1024px)
+- [x] **T6.2** Test all detail pages on mobile, tablet, and desktop
+- [x] **T6.3** Verify tab navigation is mobile-friendly (stack on mobile, horizontal on desktop)
+- [x] **T6.4** Ensure images are responsive and load efficiently
+- [x] **T6.5** Test search functionality on mobile (touch keyboard input)
+- [x] **T6.6** Verify all spacing, padding, and font sizes are appropriate across screen sizes
 
 ## Phase 7: Optimization & Error Handling
 
-- [ ] **T7.1** Add loading states for API calls
-- [ ] **T7.2** Add error states and messages for failed API requests
-- [ ] **T7.3** Optimize images using Next.js `<Image>` component and responsive sizing
-- [ ] **T7.4** Consider implementing result limit pagination for large lists
-- [ ] **T7.5** Test performance with browser DevTools (Lighthouse)
+- [x] **T7.1** Add loading states for API calls
+- [x] **T7.2** Add error states and messages for failed API requests
+- [x] **T7.3** Optimize images using Next.js `<Image>` component and responsive sizing
+- [x] **T7.4** Consider implementing result limit pagination for large lists
+- [x] **T7.5** Test performance with browser DevTools (Lighthouse)
 
 ## Phase 8: Final Testing & Deployment
 

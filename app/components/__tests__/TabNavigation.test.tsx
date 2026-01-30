@@ -52,7 +52,7 @@ describe('TabNavigation', () => {
     render(<TabNavigation />)
 
     const pokemonTab = screen.getByRole('link', { name: /pokemon/i })
-    expect(pokemonTab).toHaveClass('border-blue-500', 'text-blue-600')
+    expect(pokemonTab).toHaveClass('border-green-500', 'text-green-600')
   })
 
   it('does not highlight inactive tabs', () => {
@@ -62,7 +62,7 @@ describe('TabNavigation', () => {
 
     const locationsTab = screen.getByRole('link', { name: /locations/i })
     expect(locationsTab).toHaveClass('text-gray-600')
-    expect(locationsTab).not.toHaveClass('border-blue-500')
+    expect(locationsTab).not.toHaveClass('border-green-500')
   })
 
   it('highlights Locations tab when on /locations path', () => {
@@ -71,7 +71,7 @@ describe('TabNavigation', () => {
     render(<TabNavigation />)
 
     const locationsTab = screen.getByRole('link', { name: /locations/i })
-    expect(locationsTab).toHaveClass('border-blue-500', 'text-blue-600')
+    expect(locationsTab).toHaveClass('border-green-500', 'text-green-600')
   })
 
   it('highlights Moves tab when on /moves path', () => {
@@ -80,7 +80,7 @@ describe('TabNavigation', () => {
     render(<TabNavigation />)
 
     const movesTab = screen.getByRole('link', { name: /moves/i })
-    expect(movesTab).toHaveClass('border-blue-500', 'text-blue-600')
+    expect(movesTab).toHaveClass('border-green-500', 'text-green-600')
   })
 
   it('highlights Generations tab when on /generations path', () => {
@@ -89,7 +89,7 @@ describe('TabNavigation', () => {
     render(<TabNavigation />)
 
     const generationsTab = screen.getByRole('link', { name: /generations/i })
-    expect(generationsTab).toHaveClass('border-blue-500', 'text-blue-600')
+    expect(generationsTab).toHaveClass('border-green-500', 'text-green-600')
   })
 
   it('renders navigation element with proper structure', () => {

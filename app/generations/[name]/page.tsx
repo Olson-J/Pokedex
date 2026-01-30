@@ -115,20 +115,20 @@ export default function GenerationDetailPage({ params }: GenerationDetailProps) 
         <div className="mb-4">
           <BackButton />
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4 sm:p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-purple-300 dark:border-purple-700 p-4 sm:p-6">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-700 dark:text-purple-400">
               {formatGenerationName(generation.name)}
             </h1>
           </div>
 
           {/* Primary Region */}
           <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-2">
               Primary Region
             </h2>
-            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm capitalize">
+            <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm capitalize border border-purple-300 dark:border-purple-700">
               {formatRegionName(generation.main_region.name)}
             </span>
           </div>
@@ -136,7 +136,7 @@ export default function GenerationDetailPage({ params }: GenerationDetailProps) 
           {/* Pokemon List with Search */}
           <div className="mb-6">
             <div className="mb-3">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">
+              <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">
                 Pokemon ({filteredPokemon.length} of {generation.pokemon_species.length})
               </h2>
               <SearchInput
@@ -151,7 +151,7 @@ export default function GenerationDetailPage({ params }: GenerationDetailProps) 
                   <Link
                     key={pokemon.name}
                     href={`/pokemon/${pokemon.name}`}
-                    className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900 border border-purple-200 dark:border-purple-700 transition-colors"
                   >
                     <span className="text-sm text-gray-900 dark:text-white">
                       {formatPokemonName(pokemon.name)}

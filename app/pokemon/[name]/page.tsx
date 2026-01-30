@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import BackButton from '@/app/components/BackButton'
+import PokemonLocationsList from '@/app/components/PokemonLocationsList'
+import PokemonMovesList from '@/app/components/PokemonMovesList'
 
 interface PokemonDetailProps {
   params: Promise<{ name: string }>
@@ -110,22 +112,22 @@ export default async function PokemonDetailPage({ params }: PokemonDetailProps) 
         <div className="mb-4">
           <BackButton />
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4 sm:p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-purple-300 dark:border-purple-700 p-4 sm:p-6">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white capitalize">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-700 dark:text-purple-400 capitalize">
               {pokemon.name}
             </h1>
           </div>
 
           {/* Types */}
           <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">Types</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-2">Types</h2>
             <div className="flex gap-2 flex-wrap">
               {pokemon.types.map((typeInfo) => (
                 <span
                   key={typeInfo.type.name}
-                  className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm capitalize"
+                  className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm capitalize border border-purple-300 dark:border-purple-700"
                 >
                   {typeInfo.type.name}
                 </span>
@@ -135,7 +137,7 @@ export default async function PokemonDetailPage({ params }: PokemonDetailProps) 
 
           {/* Sprites */}
           <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">Sprites</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">Sprites</h2>
             <div className="flex gap-8 flex-wrap justify-center sm:justify-start">
               {pokemon.sprites.front_default && (
                 <div className="text-center">
@@ -144,7 +146,8 @@ export default async function PokemonDetailPage({ params }: PokemonDetailProps) 
                     alt={`${pokemon.name} sprite`}
                     width={200}
                     height={200}
-                    className="bg-gray-100 dark:bg-gray-800 rounded-lg"
+                    priority
+                    className="bg-gray-100 dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-700"
                   />
                   <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mt-2">Normal</p>
                 </div>
@@ -156,7 +159,8 @@ export default async function PokemonDetailPage({ params }: PokemonDetailProps) 
                     alt={`${pokemon.name} shiny sprite`}
                     width={200}
                     height={200}
-                    className="bg-gray-100 dark:bg-gray-800 rounded-lg"
+                    priority
+                    className="bg-gray-100 dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-700"
                   />
                   <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mt-2">Shiny</p>
                 </div>
@@ -166,7 +170,7 @@ export default async function PokemonDetailPage({ params }: PokemonDetailProps) 
 
           {/* Stats */}
           <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">Stats</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700 dark:text-purple-400 mb-3">Stats</h2>
             <div className="space-y-2">
               {pokemon.stats.map((statInfo) => (
                 <div key={statInfo.stat.name} className="flex items-center gap-3">
@@ -175,7 +179,7 @@ export default async function PokemonDetailPage({ params }: PokemonDetailProps) 
                   </span>
                   <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-4">
                     <div
-                      className="bg-blue-500 dark:bg-blue-400 h-4 rounded-full"
+                      className="bg-purple-500 dark:bg-purple-400 h-4 rounded-full"
                       style={{ width: `${Math.min(100, (statInfo.base_stat / 255) * 100)}%` }}
                     />
                   </div>
@@ -189,45 +193,15 @@ export default async function PokemonDetailPage({ params }: PokemonDetailProps) 
 
           {/* Locations */}
           {uniqueLocations.length > 0 && (
-            <div className="mb-6">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                Found in Locations
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {uniqueLocations.map((location) => (
-                  <Link
-                    key={location.name}
-                    href={`/locations/${location.name}`}
-                    className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    <span className="text-sm text-gray-900 dark:text-white">
-                      {formatLocationName(location.name)}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <PokemonLocationsList 
+              locations={uniqueLocations}
+            />
           )}
 
           {/* Moves */}
-          <div className="mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">
-              Moves ({pokemon.moves.length})
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-              {pokemon.moves.map((moveInfo) => (
-                <Link
-                  key={moveInfo.move.name}
-                  href={`/moves/${moveInfo.move.name}`}
-                  className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <span className="text-sm text-gray-900 dark:text-white">
-                    {formatMoveName(moveInfo.move.name)}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <PokemonMovesList 
+            moves={pokemon.moves}
+          />
         </div>
       </div>
     </div>
